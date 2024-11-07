@@ -123,6 +123,4 @@ public class ManageStaff {
             System.out.println("Error updating staff: " + e.getMessage());
         }
     }
-    
-
 }

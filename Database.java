@@ -79,8 +79,4 @@ public class Database {
         }
     }
 
-
-    public void loadPersonData(Records record, String filePath, String id) throws IOException {
-        record.loadFromDatabase(this, filePath, id);  
-    }
 }
