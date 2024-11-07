@@ -6,21 +6,28 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Database {
-    public String ReadFile(String filePath, String id) throws IOException {
+    public String ReadFile(String filePath, String required, int Column) throws IOException {
+        StringBuilder fileContent = new StringBuilder();
+
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) 
         {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] words = line.split("\\s+");
-                if (words[0].equals(id)) 
+                if (words[Column].equals(required)) 
                 { 
-                    return line;
+                    fileContent.append(line).append(System.lineSeparator());
                 }
             }
+        } catch (IOException e) {
+            return "An error occurred while reading the file: " + e.getMessage(); // Error handling within the method
         }
-        return null;
+        return fileContent.toString();
     }
-    public void UpdateFile(String filePath, String id, String old, String replace) throws IOException {
+
+
+    public void UpdateFile(String filePath, String id, String old, String replace) throws IOException 
+    {
         File tempFile = new File("tempFile.txt");
         try (BufferedReader br = new BufferedReader(new FileReader(filePath));
              BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
@@ -66,5 +73,4 @@ public class Database {
     public void loadPersonData(Records record, String filePath, String id) throws IOException {
         record.loadFromDatabase(this, filePath, id);  
     }
-
 }
