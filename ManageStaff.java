@@ -22,7 +22,7 @@ public class ManageStaff {
                 case 1: viewStaff(); break;
                 case 2: addNewStaff(); break;
                 case 3: updateStaff(); break;
-                //case 4: removeStaff(); break;
+                case 4: removeStaff(); break;
                 case 5: return; 
                 default: System.out.println("Invalid choice.");
             }
@@ -121,6 +121,46 @@ public class ManageStaff {
             System.out.println("Staff updated successfully.");
         } catch (IOException e) {
             System.out.println("Error updating staff: " + e.getMessage());
+        }
+    }
+    public void removeStaff() throws IOException{
+        System.out.println("Remove by which field? ");
+        System.out.println("1. ID");
+        System.out.println("2. Name");
+        System.out.println("3. Role");
+        System.out.println("4. Gender");
+        System.out.println("5. Age");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        switch (choice) {
+            case 1:
+                System.out.print("ID: ");
+                String id = sc.nextLine();
+                db.deleteRecord(filePath, id, 0);
+                break;
+            case 2:
+                System.out.print("Name: ");
+                String name = sc.nextLine();
+                db.deleteRecord(filePath, name, 1);
+                break;
+            case 3:
+                System.out.print("Role: ");
+                String role = sc.nextLine();
+                db.deleteRecord(filePath, role, 2);
+                break;
+            case 4:
+                System.out.print("Gender: ");
+                String gender = sc.nextLine();
+                db.deleteRecord(filePath, gender, 3);
+                break;
+            case 5:
+                System.out.print("Age: ");
+                String age = sc.nextLine();
+                db.deleteRecord(filePath, age, 4);
+                break;
+            default:
+                System.out.println("Invalid choice.");
+                return;
         }
     }
 }

@@ -1,5 +1,4 @@
 12345 JohnDoe Doctor Female 23 
 12346 DairyMonkey Pharmacist Male 18
 12347 AdvikDumb Patient Male 18
-12348 Edviki Doctor Male 19
 12349 GundaChutiya Administrator Male 21

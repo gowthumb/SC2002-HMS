@@ -14,8 +14,7 @@ public class Database {
             while ((line = br.readLine()) != null) {
                 fileContent.append(line).append(System.lineSeparator());
             }
-        }
-    
+        }   
         return fileContent.toString();
     }
     public String ReadFile(String filePath, String required, int Column) throws IOException {
@@ -53,13 +52,11 @@ public class Database {
                         }
                     }
                     line = String.join(" ", words);
-                }
-                
+                }               
                 bw.write(line);
                 bw.newLine();
             }
-        }
-        
+        }       
         File originalFile = new File(filePath);
         if (originalFile.delete()) {
             if (!tempFile.renameTo(originalFile)) {
@@ -70,7 +67,6 @@ public class Database {
         }
     }
 
-
     public void addnew(String filePath, String newline) throws IOException 
     {
         try (FileWriter writer = new FileWriter(filePath, true)) 
@@ -79,4 +75,34 @@ public class Database {
         }
     }
 
+    public void deleteRecord(String filePath, String required, int column) throws IOException {
+        File tempFile = new File("tempFile.txt");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+            String line;
+            boolean found = false;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split("\\s+");
+                if (words[column].equals(required)) {
+                    found = true; 
+                    continue;
+                }
+                bw.write(line);
+                bw.newLine();
+            }
+
+            if (!found) {
+                System.out.println("Record " + required + " not found.");
+            }
+        }
+        File originalFile = new File(filePath);
+        if (originalFile.delete()) {
+            if (!tempFile.renameTo(originalFile)) {
+                throw new IOException("Could not rename the temp file to the original file.");
+            }
+        } else {
+            throw new IOException("Could not delete the original file.");
+        }
+    }
 }
