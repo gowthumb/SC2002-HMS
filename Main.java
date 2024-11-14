@@ -1,53 +1,141 @@
+import java.io.IOException;
 import java.util.Scanner;
 
+import javax.swing.text.View;
+
 public class Main {
-    public static void main(String[] args) {
-        Database database = new Database();
-        ViewInventory viewInventory = new ViewInventory();
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        // CancelAppointments cancel = new CancelAppointments("23456", "Dr.Y");
+        // cancel.Cancel();
 
-        String filePath = "Inventory.txt"; 
+        // Database db = new Database();
+        // String filePath = "Patient.txt";
+        
+        // ViewMedicalRecords view = new ViewMedicalRecords("12345");
+        // view.PrintRecordspatient();
 
-        while (true) {
-            System.out.println("\n--- Inventory Management ---");
-            System.out.println("1. Check Inventory for a Medicine");
-            System.out.println("2. Check if Stock is Low");
-            System.out.println("3. Display Full Inventory");
-            System.out.println("4. Exit");
-            System.out.print("Enter your choice: ");
-            int choice = scanner.nextInt();
-            scanner.nextLine(); 
+        // UpdateRecords update = new UpdateRecords( "12345", "Female", "Male");
+        // update.performUpdate(db, filePath);
+        // ViewAvailableAppointments app = new ViewAvailableAppointments();
+        // app.AvailableAppointments();
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter Medicine Name: ");
-                    String medicineName = scanner.nextLine();
-                    viewInventory.loadFromDatabase(database, filePath, medicineName);
-                    viewInventory.displayInventoryDetails();
-                    break;
+        // ScheduleAppointment schedule = new ScheduleAppointment("23456", "1990-01-01", "Dr.Y", "4:00pm");
+        // schedule.RequestAppointment();
 
-                case 2:
-                    System.out.print("Enter Medicine Name to check stock: ");
-                    String medicineToCheck = scanner.nextLine();
+        // RescheduleAppointment reschedule = new RescheduleAppointment("23455", "1990-01-01", "3:00pm", "Dr.Y", "Dr.X");
+        // reschedule.MakeNewAppointment();
+        // reschedule.CancelPreviousAppointment();
+        System.out.println("1: View Medical Record");
+        System.out.println("2: Update Personal Information");
+        System.out.println("3: View Available Appointment Slots");
+        System.out.println("4: Schedule an Appointment");
+        System.out.println("5: Reschedule an Appointment");
+        System.out.println("6: Cancel an Appointment");
+        System.out.println("7: View Scheduled Appointments");
+        System.out.println("8: View Past Appointments Records");
+        System.out.println("9: Logout");
 
-                    System.out.print("Enter stock threshold: ");
-                    int threshold = scanner.nextInt();
-                    viewInventory.loadFromDatabase(database, filePath, medicineToCheck);
-                    viewInventory.checkLowStock(threshold);
-                    break;
+        int choice;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Select an operation:");
+        choice = sc.nextInt();
 
-                case 3:
-                    viewInventory.displayFullInventory(filePath);
-                    break;
+        switch(choice) {
+            case 1:
+                System.out.print("Enter your id: ");
+                String id = sc.next();
+                ViewMedicalRecords view = new ViewMedicalRecords(id);
+                view.PrintRecordspatient();
+                break;
+            
+            case 2:
+                Database db = new Database();
+                String filePath = "Patient.txt";
+                System.out.print("Enter your id: ");
+                id = sc.next();
+                System.out.println("Enter field to change: ");
+                System.out.println("1: Phone ");
+                System.out.println("2: Email ");
+                int field = sc.nextInt();
 
-                case 4:
-                    System.out.println("Exiting the program.");
-                    scanner.close();
-                    return;
+                if (field == 1)
+                {
+                    System.out.print("Enter old Phone Number: ");
+                    String old = sc.next();
+                    System.out.print("Enter New Phone Number: ");
+                    String replace = sc.next();
+                    UpdateRecords update = new UpdateRecords(id, old, replace);
+                    update.performUpdate(db, filePath);
+                }
+                else
+                {
+                    System.out.print("Enter old Email: ");
+                    String old = sc.next();
+                    System.out.print("Enter new Email: ");
+                    String replace = sc.next();
+                    UpdateRecords update = new UpdateRecords(id, old, replace);
+                    update.performUpdate(db, filePath);
+                }
+                break;
+            
+            case 3:
+                System.out.println("Available Appointments: ");
+                ViewAvailableAppointments app = new ViewAvailableAppointments();
+                app.AvailableAppointments();
+                break;
+            
+            case 4:
+                System.out.print("Enter your id: ");
+                id = sc.next();
+                System.out.println("Available Appointments: ");
+                ViewAvailableAppointments appointments = new ViewAvailableAppointments();
+                appointments.AvailableAppointments();
+                System.out.print("Enter the Date for appointment: ");
+                String date = sc.next();
+                System.out.print("Enter the Time for appointment: ");
+                String time = sc.next();
+                System.out.print("Enter Doctor Name: ");
+                String doctor = sc.next();
+                ScheduleAppointment schedule = new ScheduleAppointment(id, date, doctor, time);
+                schedule.RequestAppointment();
+                break;
+            
+            case 5:
+                System.out.print("Enter your id: ");
+                id = sc.next();
+                System.out.println("Available Appointments: ");
+                ViewAvailableAppointments reappointments = new ViewAvailableAppointments();
+                reappointments.AvailableAppointments();
+                System.out.print("Enter the New Date for appointment: ");
+                date = sc.next();
+                System.out.print("Enter the New Time for appointment: ");
+                time = sc.next();
+                System.out.print("Enter the New Doctor Name: ");
+                String new_doctor = sc.next();
+                System.out.print("Enter the Old Doctor Name: ");
+                String old_doctor = sc.next();
+                RescheduleAppointment reschedule = new RescheduleAppointment(id, date, time, new_doctor, old_doctor);
+                // ScheduleAppointment schedulenew = new ScheduleAppointment(id, date, new_doctor, time);
+                // schedulenew.RequestAppointment();
+                reschedule.CancelPreviousAppointment();
+                reschedule.MakeNewAppointment();
+                break;
+            
+            case 6:
+                System.out.print("Enter your id: ");
+                id = sc.next();
+                System.out.print("Enter doctor name: ");
+                doctor = sc.next();
+                CancelAppointments cancel = new CancelAppointments(id, doctor);
+                cancel.Cancel();
+                break;
 
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-        }
+            default:
+                System.out.println("Invalid Choice");
+          }
+          
+
+
     }
+   
 }
