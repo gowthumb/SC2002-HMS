@@ -13,7 +13,8 @@ public class AppointmentDetails {
         System.out.println("3. Timeslot");
         System.out.println("4. Appointment Status");
         System.out.println("5. Doctor Name");
-        System.out.println("6. View All");
+        System.out.println("6. Outcome");
+        System.out.println("7. View All");
         int choice = sc.nextInt();
         sc.nextLine();
         String search;
@@ -49,6 +50,12 @@ public class AppointmentDetails {
                 System.out.println(search);
                 break;
             case 6:
+                System.out.print("Appointment Outcome: ");
+                String outcome = sc.nextLine();
+                search = db.ReadFile(filePath, outcome, 5);
+                System.out.println(search);
+                break;
+            case 7:
                 search = db.ReadAll(filePath);
                 System.out.println(search);
                 break;

@@ -1,5 +1,5 @@
-12345 1990-01-01 1:00pm Completed Dr.X 
-23455 1990-01-01 2:00pm Upcoming Dr.X 
-None 1990-01-01 3:00pm Available None 
-None 1990-01-01 4:00pm Available None 
-25555 1990-01-01 12:00pm Missed Dr.Dariel 
+12345 1990-01-01 1:00pm Completed Dr.X Flu
+23455 1990-01-01 2:00pm Upcoming Dr.X NA
+None 1990-01-01 3:00pm Available None NA
+None 1990-01-01 4:00pm Available None NA
+25555 1990-01-01 12:00pm Missed Dr.Dariel NA 
