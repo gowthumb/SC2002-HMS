@@ -1,6 +1,6 @@
 import java.io.IOException;
 
-public class UpdateRecords 
+public class UpdateRecords implements UpdatePatient
 {
     String id;
     String old;
@@ -13,9 +13,10 @@ public class UpdateRecords
         this.replace = replace;
     }
 
-    public void performUpdate(Database db, String filePath) {
+    public void updatePatients() {
+        Database db = new Database();
         try {
-            db.UpdateFile(filePath, id, old, replace);
+            db.UpdateFile("Patient.txt", id, old, replace);
             System.out.println("Update successful for ID: " + id);
         } catch (IOException e) {
             System.out.println("Error updating file: " + e.getMessage());
