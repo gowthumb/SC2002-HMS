@@ -1,12 +1,12 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-public class AppointmentDetails {
+public class AdminViewAppointment implements ViewAppointment{
     Database db = new Database();
     String filePath = "Appointment.txt";
     private Scanner sc = new Scanner(System.in);
 
-    public void Appointment() throws IOException{
+    public void viewAppointment() throws IOException{
         System.out.println("Search Appointment Details by which field? ");
         System.out.println("1. PatientID");
         System.out.println("2. Date");

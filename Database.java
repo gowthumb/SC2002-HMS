@@ -105,4 +105,35 @@ public class Database {
             throw new IOException("Could not delete the original file.");
         }
     }
+    public void appendToLine(String filePath, String id, String[] newWords) throws IOException {
+        File tempFile = new File("tempFile.txt");
+    
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+    
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split("\\s+");
+    
+                if (words[0].equals(id)) {  // Assuming ID is in the first column
+                    StringBuilder updatedLine = new StringBuilder(line);
+                    for (String newWord : newWords) {
+                        updatedLine.append(" ").append(newWord);
+                    }
+                    line = updatedLine.toString();
+                }
+    
+                bw.write(line);
+                bw.newLine();
+            }
+        }   
+        File originalFile = new File(filePath);
+        if (originalFile.delete()) {
+            if (!tempFile.renameTo(originalFile)) {
+                throw new IOException("Could not rename temporary file.");
+            }
+        } else {
+            throw new IOException("Could not delete the original file.");
+        }
+    }
 }
