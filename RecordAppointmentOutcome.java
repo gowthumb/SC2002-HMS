@@ -55,9 +55,11 @@ public class RecordAppointmentOutcome implements UpdateAppointments {
                     System.out.print("Medicine Prescribed: ");
                     String medicine = sc.nextLine();
                     String status = "Pending";
+                    System.out.print("Amount of Medicine: ");
+                    String med_amnt = sc.nextLine();
                     System.out.print("Consultation Notes: ");
                     String notes = sc.nextLine();
-                    String[] outcome = {service, diagnosis, medicine, status, notes};
+                    String[] outcome = {service, diagnosis, medicine, status, med_amnt, notes};
                     db.UpdateFile("Appointments.txt", id, "Upcoming", "Completed");
                     db.appendToLine("Appointments.txt", id, outcome);
                     System.out.println("Outcome Record Updated");

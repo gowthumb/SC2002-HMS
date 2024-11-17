@@ -1,21 +1,22 @@
-import java.io.IOException;
-
 public class Login {
-    private String oldPassword;
+    private String storedPassword; 
     private String newPassword;
     private String id;
-    
-    public Login(String Old, String New, String id)
-    {
-        oldPassword = Old;
-        newPassword = New;
+
+    public Login(String storedPassword, String newPassword, String id) {
+        this.storedPassword = storedPassword;
+        this.newPassword = newPassword;
         this.id = id;
     }
 
-    public void ChangePassword() throws IOException
-    {
+    public void changePassword() {
         Database db = new Database();
-        db.UpdateFile("Allusers.txt", id, oldPassword, newPassword);
+        try {
+            String hashedNewPassword = Hash.hashPassword(newPassword);
+            db.UpdateFile("Allusers.txt", id, storedPassword, hashedNewPassword);
+            System.out.println("Password updated successfully.");
+        } catch (Exception e) {
+            System.out.println("An error occurred while updating the password. Please try again.");
+        }
     }
-    
 }

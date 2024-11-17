@@ -23,7 +23,7 @@ public class AdministratorMenu implements Menu{
             sc.nextLine();  
             switch (choice) {
                 case 1:
-                    view = new AcessStaff();
+                    view = new AccessStaff();
                     view.viewStaff();
                     break;
                 case 2:

@@ -1,5 +1,5 @@
-12346|DairyMonkey|Pharmacist|Male|18
-12347|AdvikDumb|Patient|Male|18
-12349|GundaChutiya|Administrator|Male|21
-99887 Adit Administrator  Male 18
+M12346|DairyMonkey|Pharmacist|Male|18
+D12347|AdvikDumb|Doctor|Male|18
+A12349|GundaChutiya|Administrator|Male|21
+
 

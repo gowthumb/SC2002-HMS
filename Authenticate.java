@@ -1,28 +1,47 @@
-import java.io.IOException;
-
-public class Authenticate 
-{
-    private String Password;
+public class Authenticate {
+    private String password;
     private String id;
-    public Authenticate(String Password, String id)
-    {
-        this.Password = Password;
+    private String storedPassword; 
+
+    public Authenticate(String password, String id) {
+        this.password = password;
         this.id = id;
     }
-    public boolean verifyPassword() throws IOException
-    {
-        Database db = new Database();
-        String cur = db.ReadFile("Allusers.txt", Password, 1);
-        String cur_id = db.ReadFile("Allusers.txt", id, 0);
 
-        if (cur == null || cur.equals("None"))
-        {
+    public boolean verifyPassword() {
+        Database db = new Database();
+        try {
+            String storedLine = db.ReadFile("Allusers.txt", id, 0); 
+
+            if (storedLine == null || storedLine.equals("None") || storedLine.isEmpty()) {
+                return false;
+            }
+
+            String[] parts = storedLine.split("\\|");
+            if (parts.length <= 1) {
+                return false;
+            }
+
+            storedPassword = parts[1].trim();
+
+            boolean isMatch;
+            if (storedPassword.equals(password)) {
+
+                isMatch = true;
+                String hashedPassword = Hash.hashPassword(password);
+                db.UpdateFile("Allusers.txt", id, password, hashedPassword);
+            } else {
+                isMatch = Hash.verifyPassword(password, storedPassword);
+            }
+
+            return isMatch;
+        } catch (Exception e) {
+            System.out.println("An error occurred while reading from the database. Please try again.");
             return false;
         }
-        else if (cur.equals(cur_id))
-        {
-            return true;
-        }
-        return false;
+    }
+
+    public String getStoredPassword() {
+        return storedPassword;
     }
 }

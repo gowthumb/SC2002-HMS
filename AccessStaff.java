@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-public class AcessStaff implements ViewStaff{
+public class AccessStaff implements ViewStaff{
     Database db = new Database();
     String filePath = "Staff.txt";
     private Scanner sc = new Scanner(System.in);

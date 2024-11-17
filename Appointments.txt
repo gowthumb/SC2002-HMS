@@ -12,13 +12,13 @@ None|2024-05-02|11:30am|Available|None
 None|2024-05-02|1:30pm|Available|None
 None|2024-05-02|2:30pm|Available|None
 None|2024-05-02|3:30pm|Available|None
-23456|2024-05-02|4:30pm|Upcoming|Dr.ChuttadAAditya
-11121|2024-05-03|9:00am|Completed|Dr.Dariel|
-11123|2024-05-03|11:00am|Missed|Dr.Grumpy
+P23456|2024-05-02|4:30pm|Upcoming|Dr.ChuttadAAditya
+P11121|2024-05-03|9:00am|Completed|Dr.Dariel|
+P11123|2024-05-03|11:00am|Missed|Dr.Grumpy
 None|None|1:00pm|Available|None
-11126|2024-05-03|3:00pm|Upcoming|Dr.Droopy
-11127|2024-05-03|4:00pm|Upcoming|Dr.Grumpy
-11128|2024-05-04|9:00am|Completed|Dr.Dariel|Surgery|Fracture|Paracetomol|Pending|Patient needs lots of rest
-11129|2024-05-04|10:00am|Upcoming|Dr.Droopy
-11130|2024-05-04|11:00am|Upcoming|Dr.Grumpy
-12345|1990-01-01|4:00pm|Completed|Dr.X|con|cough|tablet|Dispensed|patientisalright
+P11126|2024-05-03|3:00pm|Upcoming|Dr.Droopy
+P11127|2024-05-03|4:00pm|Upcoming|Dr.Grumpy
+P11128|2024-05-04|9:00am|Completed|Dr.Dariel|Surgery|Fracture|Paracetomol|Pending|5|Patient needs lots of rest
+P11129|2024-05-04|10:00am|Upcoming|Dr.Droopy
+P11130|2024-05-04|11:00am|Upcoming|Dr.Grumpy
+P12345|1990-01-01|4:00pm|Completed|Dr.X|con|cough|tablet|Dispensed|patientisalright
