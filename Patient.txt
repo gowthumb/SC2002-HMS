@@ -1,2 +1,2 @@
-12345 JohnDoe 1990-01-01 Female 555-1234 johndoe@example.com O+ None Medication ElbowFracture Painkillers X-Ray/Surgery
-23456 Jennie 1990-01-01 Female 555-1234 johndoe@example.com O+ None Medication
+12345|JohnDoe|1990-01-01|Female|555-1234|johndoe@example.com|O+|None|Medication|Dispensed
+

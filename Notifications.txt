@@ -1,0 +1,2 @@
+The Stock Level of Aspirin is 200 less than the warning level. A replenishment is needed.
+
