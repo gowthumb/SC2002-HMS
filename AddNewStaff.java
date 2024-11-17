@@ -20,7 +20,7 @@ public class AddNewStaff implements UpdateStaff{
         int age = sc.nextInt();
         sc.nextLine(); 
     
-        String newStaff = id + " " + name + " " + role + " " + gender + " " + age + "\n";
+        String newStaff = id + "|" + name + "|" + role + "|" + gender + "|" + age + "\n";
     
         try {
             db.addnew(filePath, newStaff);

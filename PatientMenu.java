@@ -3,30 +3,12 @@ import java.util.Scanner;
 
 import javax.swing.text.View;
 
-public class PatientMenu {
-    
+public class PatientMenu implements Menu{
+    public void displayMenu() throws IOException {
+        chooseOption(); 
+    }
     public void chooseOption() throws IOException
     {
-        // CancelAppointments cancel = new CancelAppointments("23456", "Dr.Y");
-        // cancel.Cancel();
-
-        // Database db = new Database();
-        // String filePath = "Patient.txt";
-        
-        // ViewMedicalRecords view = new ViewMedicalRecords("12345");
-        // view.PrintRecordspatient();
-
-        // UpdateRecords update = new UpdateRecords( "12345", "Female", "Male");
-        // update.performUpdate(db, filePath);
-        // ViewAvailableAppointments app = new ViewAvailableAppointments();
-        // app.AvailableAppointments();
-
-        // ScheduleAppointment schedule = new ScheduleAppointment("23456", "1990-01-01", "Dr.Y", "4:00pm");
-        // schedule.RequestAppointment();
-
-        // RescheduleAppointment reschedule = new RescheduleAppointment("23455", "1990-01-01", "3:00pm", "Dr.Y", "Dr.X");
-        // reschedule.MakeNewAppointment();
-        // reschedule.CancelPreviousAppointment();
         System.out.println("1: View Medical Record");
         System.out.println("2: Update Personal Information");
         System.out.println("3: View Available Appointment Slots");
@@ -131,7 +113,22 @@ public class PatientMenu {
                 CancelAppointments cancel = new CancelAppointments(id, doctor);
                 cancel.updateAppointments();
                 break;
-
+            case 7:
+                System.out.print("Enter your id: ");
+                id = sc.next();
+                ViewScheduledAppointments apps = new ViewScheduledAppointments(id);
+                apps.viewAppointments();
+                break;
+            
+            case 8:
+                System.out.print("Enter your id: ");
+                id = sc.next();
+                ViewPastAppointments past = new ViewPastAppointments(id);
+                past.viewAppointments();
+                break;
+            case 9:
+                System.out.println("Logging out...");
+                break;
             default:
                 System.out.println("Invalid Choice");
           }

@@ -20,8 +20,10 @@ public class ViewUpcomingAppointments implements ViewAppointments{
             
             String[] appointmentLines = appointments.split(System.lineSeparator());
     
+            boolean foundUpcoming = false;
+    
             for (String appointment : appointmentLines) {
-                String[] details = appointment.split("\\s+");
+                String[] details = appointment.split("\\|");
 
                 if (details.length < 4) {
                     System.err.println("Invalid appointment record: " + appointment);
@@ -32,12 +34,16 @@ public class ViewUpcomingAppointments implements ViewAppointments{
     
                 if ("Upcoming".equalsIgnoreCase(status)) {
                     System.out.println(appointment);
+                    foundUpcoming = true;
                 }
+            }
+
+            if (!foundUpcoming) {
+                System.out.println("No upcoming appointments found.");
             }
         } catch (IOException e) {
             System.err.println("An error occurred while retrieving appointments: " + e.getMessage());
             e.printStackTrace();
         }
     }
-    
 }

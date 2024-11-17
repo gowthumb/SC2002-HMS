@@ -153,4 +153,49 @@ public class Database {
             throw new IOException("Could not delete the original file.");
         }
     }
+
+    public void appendToLine(String filePath, String id, String[] newWords) throws IOException {
+    File tempFile = new File("tempFile.txt");
+    
+    try (BufferedReader br = new BufferedReader(new FileReader(filePath));
+         BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+    
+        String line;
+        boolean idFound = false;
+        while ((line = br.readLine()) != null) {
+            String[] words = line.split("\\|"); 
+    
+            if (words[0].equals(id)) {
+                idFound = true;
+                StringBuilder updatedLine = new StringBuilder(line); 
+                
+                
+                for (String newWord : newWords) {
+                    updatedLine.append("|").append(newWord); 
+                }
+                
+                line = updatedLine.toString(); 
+            }
+    
+            bw.write(line); 
+            bw.newLine(); 
+        }
+    
+        if (!idFound) {
+            System.out.println("Appointment ID " + id + " not found.");
+        }
+    }
+    
+    // Replace the original file with the updated one
+    File originalFile = new File(filePath);
+    if (originalFile.delete()) {
+        if (!tempFile.renameTo(originalFile)) {
+            throw new IOException("Could not rename temporary file.");
+        }
+    } else {
+        throw new IOException("Could not delete the original file.");
+    }
+}
+
+    
 }

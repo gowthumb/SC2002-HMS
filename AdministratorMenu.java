@@ -1,11 +1,14 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-public class AdministratorMenu {
+public class AdministratorMenu implements Menu{
     Scanner sc = new Scanner(System.in);
     ViewStaff view;
     UpdateStaff update;
     ViewAppointment appointment;
+    public void displayMenu() throws IOException {
+        chooseOption();
+    }
     public void chooseOption() throws IOException{
         while (true) {
             System.out.println("\nWelcome to the Staff Management System");
@@ -35,10 +38,13 @@ public class AdministratorMenu {
                     update = new RemoveStaff();
                     update.updateStaff();
                     break;
-                case 6:
+                case 5:
                     appointment = new AdminViewAppointment();
                     appointment.viewAppointment();
                     return;
+                case 6:
+                    System.out.println("Logging out...");
+                    break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }

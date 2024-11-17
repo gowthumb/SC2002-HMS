@@ -35,8 +35,6 @@ public class UpdatePatientDetails implements UpdatePatients{
         } catch (IOException e) {
             System.err.println("An error occurred while updating the patient record: " + e.getMessage());
             e.printStackTrace();
-        } finally {
-            sc.close();
         }
     }
 }

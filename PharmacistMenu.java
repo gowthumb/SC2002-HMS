@@ -1,13 +1,16 @@
 import java.io.IOException;
 import java.util.Scanner;
 
-public class MainPharmacistMenu {
-    public static void main(String[] args) {
+public class PharmacistMenu implements Menu{
+    public void displayMenu() throws IOException {
+        chooseOption(); 
+    }
+    public void chooseOption() throws IOException {
         Scanner scanner = new Scanner(System.in);
         Database db = new Database();
         String inventoryFilePath = "Inventory.txt";
         String patientFilePath = "Patient.txt";
-        String appointmentFilePath = "Appointment.txt"; // Needed for UpdatePrescriptionStatus and ViewAppOutcome
+        String appointmentFilePath = "Appointments.txt"; // Needed for UpdatePrescriptionStatus and ViewAppOutcome
 
         while (true) {
             System.out.println("\n--- Pharmacist Menu ---");

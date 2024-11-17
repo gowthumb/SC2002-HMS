@@ -18,7 +18,7 @@ public class ScheduleAppointment implements UpdateAppointments
     public void updateAppointments() throws IOException {
         Database db = new Database();
     
-        String tocheck = "None|" + this.Date + "|" + this.TimeSlot + "|Available None";
+        String tocheck = "None|" + this.Date + "|" + this.TimeSlot + "|Available|None";
         String line = db.ReadFile("Appointments.txt", tocheck, -1);
     
         if (line.startsWith("An error occurred")) {
