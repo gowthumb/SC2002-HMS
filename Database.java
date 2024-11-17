@@ -6,21 +6,37 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Database {
-    public String ReadFile(String filePath, String id) throws IOException {
+    public String ReadAll(String filePath) throws IOException {
+        StringBuilder fileContent = new StringBuilder();
+    
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                fileContent.append(line).append(System.lineSeparator());
+            }
+        }   
+        return fileContent.toString();
+    }
+    public String ReadFile(String filePath, String required, int Column) throws IOException {
+        StringBuilder fileContent = new StringBuilder();
+
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) 
         {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] words = line.split("\\s+");
-                if (words[0].equals(id)) 
+                if (words[Column].equals(required)) 
                 { 
-                    return line;
+                    fileContent.append(line).append(System.lineSeparator());
                 }
             }
+        } catch (IOException e) {
+            return "An error occurred while reading the file: " + e.getMessage(); // Error handling within the method
         }
-        return null;
+        return fileContent.toString();
     }
-    public void UpdateFile(String filePath, String id, String old, String replace) throws IOException {
+    public void UpdateFile(String filePath, String id, String old, String replace) throws IOException 
+    {
         File tempFile = new File("tempFile.txt");
         try (BufferedReader br = new BufferedReader(new FileReader(filePath));
              BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
@@ -36,13 +52,87 @@ public class Database {
                         }
                     }
                     line = String.join(" ", words);
+                }               
+                bw.write(line);
+                bw.newLine();
+            }
+        }       
+        File originalFile = new File(filePath);
+        if (originalFile.delete()) {
+            if (!tempFile.renameTo(originalFile)) {
+                throw new IOException("Could not rename temporary file.");
+            }
+        } else {
+            throw new IOException("Could not delete the original file.");
+        }
+    }
+
+    public void addnew(String filePath, String newline) throws IOException 
+    {
+        try (FileWriter writer = new FileWriter(filePath, true)) 
+        { 
+            writer.write(newline);
+        }
+    }
+
+    public void deleteRecord(String filePath, String required, int column) throws IOException {
+        File tempFile = new File("tempFile.txt");
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+            String line;
+            boolean found = false;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split("\\s+");
+                if (words[column].equals(required)) {
+                    found = true; 
+                    continue;
                 }
-                
+                bw.write(line);
+                bw.newLine();
+            }
+
+            if (!found) {
+                System.out.println("Record " + required + " not found.");
+            }
+        }
+        File originalFile = new File(filePath);
+        if (originalFile.delete()) {
+            if (!tempFile.renameTo(originalFile)) {
+                throw new IOException("Could not rename the temp file to the original file.");
+            }
+        } else {
+            throw new IOException("Could not delete the original file.");
+        }
+    }
+
+    public void loadPersonData(Records record, String filePath, String id) throws IOException {
+        record.loadFromDatabase(this, filePath, id);  
+    }
+
+    public void appendToLine(String filePath, String id, String[] newWords) throws IOException {
+        File tempFile = new File("tempFile.txt");
+    
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath));
+             BufferedWriter bw = new BufferedWriter(new FileWriter(tempFile))) {
+    
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] words = line.split("\\s+");
+    
+                if (words[0].equals(id)) {  // Assuming ID is in the first column
+                    StringBuilder updatedLine = new StringBuilder(line);
+                    for (String newWord : newWords) {
+                        updatedLine.append(" ").append(newWord);
+                    }
+                    line = updatedLine.toString();
+                }
+    
                 bw.write(line);
                 bw.newLine();
             }
         }
-        
+    
         File originalFile = new File(filePath);
         if (originalFile.delete()) {
             if (!tempFile.renameTo(originalFile)) {
@@ -53,18 +143,4 @@ public class Database {
         }
     }
     
-
-    public void addnew(String filePath, String newline) throws IOException 
-    {
-        try (FileWriter writer = new FileWriter(filePath, true)) 
-        { 
-            writer.write(newline);
-        }
-    }
-
-
-    public void loadPersonData(Records record, String filePath, String id) throws IOException {
-        record.loadFromDatabase(this, filePath, id);  
-    }
-
 }
